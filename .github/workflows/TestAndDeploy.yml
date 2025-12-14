@@ -9,6 +9,7 @@ on:
 jobs:
   Test:
     runs-on: ubuntu-latest
+    environment: anything
     if: |
       github.event_name == 'pull_request' || 
       github.event_name == 'workflow_dispatch'
@@ -21,6 +22,7 @@ jobs:
 
   Deploy:
         runs-on: ubuntu-latest
+        environment: anything
         if: |
           github.ref == 'refs/heads/main'
         steps:
