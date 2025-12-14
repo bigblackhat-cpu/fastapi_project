@@ -11,7 +11,6 @@ app_celery = Celery(
     backend=os.getenv('REDIS_BACKEND')
 )
 
-# 显式声明队列，参数必须和已存在的队列完全一致！
 app_celery.conf.task_queues = (
     Queue(
         'celery_app',
@@ -22,11 +21,18 @@ app_celery.conf.task_queues = (
     ),
 )
 
-app_celery.conf.worker_prefetch_multiplier = 0
+try:
+    model_instance = PaddleOCRVL() 
+    print("✅ PaddleOCRVL 模型加载成功!")
+except Exception as e:
+    print(f"❌ 模型加载失败: {e}")
+    model_instance = None
 
 @app_celery.task(queue ='celery_app' )
-def add(name: str):
-    print('===start')
-    time.sleep(30)
-    print("end")
-    return f'Hellow my name is {name}'
+def ocr_api(url: str):
+    output = model_instance.predict(url)
+    for res in output:
+        res.save_to_json(save_path="output")
+        res.save_to_markdown(save_path="output")
+
+    return f'task is successfully .'

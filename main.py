@@ -1,5 +1,5 @@
 from fastapi import FastAPI,Depends
-from celery_app import add
+from celery_app import ocr_api
 from fastapi.middleware.cors import CORSMiddleware
 import dotenv
 import os
@@ -15,8 +15,6 @@ app.add_middleware(
     allow_headers=["*"],  # 允许所有请求头
 )
 
-async def mydepends():
-    return {'hi':'there is mydepends'}
 
 @app.get('/')
 async def root():
@@ -24,14 +22,14 @@ async def root():
 
 
 @app.post('/api/ocr_transform')
-async def ocr_transform():
+async def ocr_transform(pic_url:str):
     """
     Docstring for ocr_transform
 
     here will make a message to rabbitmq use celery, we will use delay 
     """
-    print('celery test')
-    resule = add.delay(name='He junie')
+
+    resule = ocr_api.delay(url=pic_url)
     
     return {'res': f'消息已发送，进入推理计算,{resule.ready()}'}
 
