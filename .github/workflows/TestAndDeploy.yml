@@ -1,0 +1,53 @@
+name: "CI/CD"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' || 
+      github.event_name == 'workflow_dispatch'
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - name: just test
+        run: echo "test over"
+
+  Deploy:
+        runs-on: ubuntu-latest
+        if: |
+          github.ref == 'refs/heads/main'
+        steps:
+          - name: connect to the host
+            uses: appleboy/ssh-action@v1
+            with:
+              host: ${{ secrets.HOST_NAME }}
+              username: ${{ secrets.USER_NAME }}
+              password: ${{ secrets.PASSWORD }}
+              port: ${{ secrets.PORT }}
+              script: |
+                export PATH=$PATH:/home/${{ secrets.USER_NAME }}/.local/bin/
+                mkdir /srv/fastapi_project_test/
+                cd /srv/fastapi_project_test/
+                echo '=========basic env==========='
+                uv --version
+                git --version
+                docker --version
+                ps -p 1 -o comm=
+                systemctl --version
+                echo '=======start deploy pull "from main" ==========='
+                git clone https://github.com/bigblackhat-cpu/fastapi_project.git
+                echo '=======uv sync==========='
+                uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
+                echo '=======启动服务==========='
+                
+                echo '=======服务状态==========='
+                
+                echo "pull over waiting systemctl config..."
+
