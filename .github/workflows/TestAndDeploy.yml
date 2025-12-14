@@ -36,6 +36,7 @@ jobs:
               script: |
                 export PATH=$PATH:/home/${{ secrets.USER_NAME }}/.local/bin/
                 mkdir /srv/fastapi_project/
+                cd /srv/fastapi_project/
                 
                 echo '=========basic env==========='
                 # uv --version
