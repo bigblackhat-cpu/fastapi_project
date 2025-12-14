@@ -35,7 +35,8 @@ jobs:
               port: ${{ secrets.PORT }}
               script: |
                 export PATH=$PATH:/home/${{ secrets.USER_NAME }}/.local/bin/
-                cd /srv/
+                cd /srv/fastapi_project/
+                
                 echo '=========basic env==========='
                 uv --version
                 git --version
