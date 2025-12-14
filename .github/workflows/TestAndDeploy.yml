@@ -50,8 +50,8 @@ jobs:
                 
                 uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
                 echo '=======启动服务==========='
-                
+                sudo systemctl restart fastapi_ocr.service
                 echo '=======服务状态==========='
-                
+                sudo systemctl status fastapi_ocr.service
                 echo "pull over waiting systemctl config..."
 
