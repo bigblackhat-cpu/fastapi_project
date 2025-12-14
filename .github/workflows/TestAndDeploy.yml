@@ -35,8 +35,7 @@ jobs:
               port: ${{ secrets.PORT }}
               script: |
                 export PATH=$PATH:/home/${{ secrets.USER_NAME }}/.local/bin/
-                mkdir /srv/fastapi_project_test/
-                cd /srv/fastapi_project_test/
+                cd /srv/
                 echo '=========basic env==========='
                 uv --version
                 git --version
@@ -45,7 +44,9 @@ jobs:
                 systemctl --version
                 echo '=======start deploy pull "from main" ==========='
                 git clone https://github.com/bigblackhat-cpu/fastapi_project.git
+                cd ./fastapi_project/
                 echo '=======uv sync==========='
+                
                 uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
                 echo '=======启动服务==========='
                 
