@@ -21,20 +21,28 @@ app_celery.conf.task_queues = (
     ),
 )
 
-try:
-    model_instance = PaddleOCRVL() 
-    print("✅ PaddleOCRVL 模型加载成功!")
-except Exception as e:
-    print(f"❌ 模型加载失败: {e}")
-    model_instance = None
+model_instance = None
 
-@app_celery.task(queue ='celery_app' )
+@worker_process_init.connect
+def init_worker_process(**kwargs):
+    """
+    在每个 Celery worker 子进程启动时调用
+    """
+    global model_instance
+    print("🔧 正在初始化 Worker 进程，加载 PaddleOCRVL 模型...")
+    from paddleocr import PaddleOCRVL  # 👈 替换为实际导入路径
+    model_instance = PaddleOCRVL()
+    print("✅ PaddleOCRVL 模型加载成功！")
+
+@app_celery.task(queue='celery_app')
 def ocr_api(url: str):
+    global model_instance
+    if model_instance is None:
+        raise RuntimeError("❌ 模型未加载！请检查 worker 初始化是否成功。")
+    
     output = model_instance.predict(url)
     for res in output:
         res.save_to_json(save_path="output")
         res.save_to_markdown(save_path="output")
-
-    return f'task is successfully .'
-
+    return "task is successfully."
 

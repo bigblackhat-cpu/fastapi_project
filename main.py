@@ -2,8 +2,7 @@ from fastapi import FastAPI,Depends
 from celery_app import ocr_api
 from fastapi.middleware.cors import CORSMiddleware
 import dotenv
-import os
-dotenv.load_dotenv()
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
