@@ -34,7 +34,7 @@ jobs:
               password: ${{ secrets.PASSWORD }}
               port: ${{ secrets.PORT }}
               script: |
-                export PATH=$PATH:/root/.local/bin/uv
+                export PATH=$PATH:/root/.local/bin/
                 cd /srv/fastapi_project/fastapi_project
                 
                 echo '=========basic env==========='

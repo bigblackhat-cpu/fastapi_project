@@ -4,6 +4,7 @@ import time
 import os
 import dotenv
 dotenv.load_dotenv()
+from celery.signals import worker_process_init
 
 app_celery = Celery(
     'tasks',
@@ -32,6 +33,7 @@ def init_worker_process(**kwargs):
     print("🔧 正在初始化 Worker 进程，加载 PaddleOCRVL 模型...")
     from paddleocr import PaddleOCRVL  # 👈 替换为实际导入路径
     model_instance = PaddleOCRVL()
+    
     print("✅ PaddleOCRVL 模型加载成功！")
 
 @app_celery.task(queue='celery_app')
