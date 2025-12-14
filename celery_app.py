@@ -36,3 +36,5 @@ def ocr_api(url: str):
         res.save_to_markdown(save_path="output")
 
     return f'task is successfully .'
+
+

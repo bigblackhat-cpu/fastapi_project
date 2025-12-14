@@ -22,36 +22,36 @@ jobs:
 
   Deploy:
         runs-on: ubuntu-latest
-        environment: anything
+        environment: autodl
         if: |
           github.ref == 'refs/heads/main'
         steps:
           - name: connect to the host
             uses: appleboy/ssh-action@v1
             with:
-              host: ${{ secrets.HOST_NAME }}
-              username: ${{ secrets.USER_NAME }}
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.USERNAME }}
               password: ${{ secrets.PASSWORD }}
               port: ${{ secrets.PORT }}
               script: |
                 export PATH=$PATH:/home/${{ secrets.USER_NAME }}/.local/bin/
-                cd /srv/fastapi_project/
+                mkdir /srv/fastapi_project/
                 
                 echo '=========basic env==========='
-                uv --version
-                git --version
-                docker --version
-                ps -p 1 -o comm=
-                systemctl --version
-                echo '=======start deploy pull "from main" ==========='
+                # uv --version
+                # git --version
+                # docker --version
+                # ps -p 1 -o comm=
+                # systemctl --version
+                # echo '=======start deploy pull "from main" ==========='
                 git clone https://github.com/bigblackhat-cpu/fastapi_project.git
-                cd ./fastapi_project/
-                echo '=======uv sync==========='
+                # cd ./fastapi_project/
+                # echo '=======uv sync==========='
                 
-                uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
+                # uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
                 echo '=======启动服务==========='
-                sudo systemctl restart fastapi_ocr.service
+                # sudo systemctl restart fastapi_ocr.service
                 echo '=======服务状态==========='
-                sudo systemctl status fastapi_ocr.service
+                # sudo systemctl status fastapi_ocr.service
                 echo "pull over waiting systemctl config..."
 
