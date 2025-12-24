@@ -22,7 +22,7 @@ jobs:
 
   Deploy:
         runs-on: ubuntu-latest
-        environment: autodl
+        environment: anything
         if: |
           github.ref == 'refs/heads/main'
         steps:
