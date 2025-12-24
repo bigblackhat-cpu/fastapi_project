@@ -22,7 +22,7 @@ jobs:
 
   Deploy:
         runs-on: ubuntu-latest
-        environment: anything
+        environment: bbh_server
         if: |
           github.ref == 'refs/heads/main'
         steps:
