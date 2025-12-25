@@ -114,3 +114,15 @@ app.config_from_object("proj.celeryconfig")
 
 ```
 
+
+## 配置的一些方向
+- 任务序列化方式
+- 时区配置
+- 预取的任务数 进程的最大并发数
+- 定义 Exchange（交换机）
+- 队列需绑定到 Exchange，并指定 routing_ke
+- 路由规则
+- 任务过期时间
+- 队列最大长度
+- 任务重试配置
+- Worker 超时
