@@ -3,7 +3,8 @@ from celery.signals import worker_process_init
 
 app = Celery('fastapi_app')
 app.config_from_object('celeryconfig')
-
+# app.autodiscover_tasks(['celery_app'])
+import tasks
 
 model_instance = None
 
@@ -30,12 +31,12 @@ model_instance = None
 #         res.save_to_json(save_path="output")
 #         res.save_to_markdown(save_path="output")
 #     return "task is successfully."
-import time
-@app.task()
-def ping():
-    print('===========task is start =========')
-    for i in range(5):
-        time.sleep(1)
-        print(i+1)
-    print('===========task is successfuly =========')
-    return 
+# import time
+# @app.task()
+# def ping():
+#     print('===========task is start =========')
+#     for i in range(5):
+#         time.sleep(1)
+#         print(i+1)
+#     print('===========task is successfuly =========')
+#     return 
