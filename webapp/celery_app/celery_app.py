@@ -26,8 +26,16 @@ model_instance = None
 #         raise RuntimeError("❌ 模型未加载！请检查 worker 初始化是否成功。")
     
 #     output = model_instance.predict(url)
-#     for res in output:
+#     for res in output:d
 #         res.save_to_json(save_path="output")
 #         res.save_to_markdown(save_path="output")
 #     return "task is successfully."
-
+import time
+@app.task()
+def ping():
+    print('===========task is start =========')
+    for i in range(5):
+        time.sleep(1)
+        print(i+1)
+    print('===========task is successfuly =========')
+    return 

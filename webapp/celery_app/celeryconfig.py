@@ -13,13 +13,12 @@ timezone = 'Europe/Oslo'
 enable_utc = True
 
 
-
-task_queues = (
-    Queue(
-        'celery_app',
-        queue_arguments={
-            'x-max-length': 2,
-            'x-overflow': 'reject-publish'   # 如果你也设置了这个，也要加上！
-        }
-    ),
-)
+# task_queues = (
+#     Queue(
+#         'celery_app',
+#         queue_arguments={
+#             'x-max-length': 2,
+#             'x-overflow': 'reject-publish'   # 如果你也设置了这个，也要加上！
+#         }
+#     ),
+# )
