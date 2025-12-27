@@ -45,7 +45,7 @@ jobs:
 
                 echo '=======服务状态==========='
                 sudo systemctl status fastapi_ocr.service
-                sudo systemctl status celery_work.service
+                sudo systemctl status celery_worker.service
                 
                 echo "over deploy "
 
