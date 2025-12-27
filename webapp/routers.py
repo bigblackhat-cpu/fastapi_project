@@ -21,7 +21,7 @@ async def ocr_transform_mock(imageSerializer: OcrImageSerializer):
 
 from .celery_app.tasks import pingTask
 @router.post('/api/pingTask')
-async def pingTask(pic_url:str):
+async def pingTask():
     """
     Docstring for ocr_transform
 
