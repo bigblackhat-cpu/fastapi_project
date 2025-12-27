@@ -22,6 +22,7 @@ jobs:
               port: ${{ secrets.PORT }}
               script: |
                 export PATH=$PATH:/root/.local/bin/
+                export PARH=$PATH:/home/${{ secrets.USERNAME }}/.local/bin/uv
                 cd /srv/fastapi_project/fastapi_project
                 
                 echo '=========basic env==========='
