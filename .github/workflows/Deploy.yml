@@ -23,6 +23,7 @@ jobs:
               script: |
                 export PATH=$PATH:/root/.local/bin/
                 export PARH=$PATH:/home/${{ secrets.USERNAME }}/.local/bin/
+                
                 cd /srv/fastapi_project/fastapi_project
                 
                 echo '=========basic env==========='

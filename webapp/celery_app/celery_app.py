@@ -4,7 +4,7 @@ from celery.signals import worker_process_init
 app = Celery('fastapi_app')
 app.config_from_object('celeryconfig')
 # app.autodiscover_tasks(['celery_app'])
-import tasks
+from . import tasks
 
 model_instance = None
 
