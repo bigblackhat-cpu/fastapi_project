@@ -1,5 +1,11 @@
 # Celery
 
+本项目
+cd 
+
+uv run celery -A webapp.celery_app worker -P solo
+uv run fastapi run webapp/main.py
+
 ## 命令行上能配置的
 ### 模式选择
 启动的时候，可以选择并发模式，也就是 worker 的时候，指定用什么模式。

@@ -19,18 +19,18 @@ async def ocr_transform_mock(imageSerializer: OcrImageSerializer):
     return {'taskid':12333713}
 
 
-from .celery_app.celery_app import ocr_api
-@router.post('/api/ocr_transform')
-async def ocr_transform(pic_url:str):
+from .celery_app.tasks import pingTask
+@router.post('/api/pingTask')
+async def pingTask(pic_url:str):
     """
     Docstring for ocr_transform
 
     here will make a message to rabbitmq use celery, we will use delay 
     """
 
-    resule = ocr_api.delay(url=pic_url)
+    result = pingTask.delay()
     
-    return {'res': f'消息已发送，进入推理计算,{resule.ready()}'}
+    return {'res': f'消息已发送，进入推理计算,{result.ready()}'}
 
 
 
