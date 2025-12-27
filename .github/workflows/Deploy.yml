@@ -39,7 +39,7 @@ jobs:
                 echo '=======启动服务==========='
 
                 sudo systemctl restart fastapi_ocr.service
-                sudo systemctl restart celery_work.service
+                sudo systemctl restart celery_worker.service
 
 
 
