@@ -26,7 +26,7 @@ jobs:
                 cd /srv/fastapi_project/fastapi_project
                 
                 echo '=========basic env==========='
-                # uv --version
+                uv --version
                 # git --version
                 # docker --version
                 # ps -p 1 -o comm=
