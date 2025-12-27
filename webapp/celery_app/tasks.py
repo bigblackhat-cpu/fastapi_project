@@ -9,4 +9,4 @@ def ping():
         time.sleep(1)
         print(i + 1)
     print('===========task is successfully =========')
-    return "pong"
+    return "ping"
