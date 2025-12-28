@@ -1,10 +1,9 @@
 # Celery
 
 本项目
-cd 
-
+start command
 uv run celery -A webapp.celery_app worker -P solo
-uv run fastapi run webapp/main.py
+uv run fastapi dev webapp/main.py
 
 ## 命令行上能配置的
 ### 模式选择
