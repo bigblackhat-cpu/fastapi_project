@@ -1,5 +1,8 @@
 import time
 from . import app  # ← 导入上面创建的 app 实例
+import datetime
+import uuid
+import os
 
 # 示例任务：ping
 @app.task
@@ -18,7 +21,18 @@ def ocr_api(url: str):
         raise RuntimeError("❌ 模型未加载！请检查 worker 初始化是否成功。")
     
     output = model_instance.predict(url)
+
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    unique_id = str(uuid.uuid4())[:8] # 生成8位随机字符串
+
+    folder_name = f"ocr_task_{timestamp}_{unique_id}"
+    
+    # 2. 创建文件夹
+    output_dir = os.path.join(os.getcwd(), "output", folder_name)
+
     for res in output:
-        res.save_to_json(save_path="output")
-        res.save_to_markdown(save_path="output")
+        res.save_to_json(save_path=output_dir)
+        res.save_to_markdown(save_path=output_dir)
+    
+
     return "task is successfully."

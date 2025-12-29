@@ -1,10 +1,15 @@
 # Celery
 
+```
 本项目
 start command
 uv run celery -A webapp.celery_app worker -P solo
-uv run fastapi dev webapp/main.py
+uv run celery -A webapp.celery_app worker --loglevel=info --concurrency=1
+uv run fastapi run webapp/main.py --host 0.0.0.0 --port 8001
 
+第三方
+ python -m pip install paddlepaddle-gpu==3.2.2 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+```
 ## 命令行上能配置的
 ### 模式选择
 启动的时候，可以选择并发模式，也就是 worker 的时候，指定用什么模式。

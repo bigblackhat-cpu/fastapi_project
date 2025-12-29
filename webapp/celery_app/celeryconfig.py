@@ -17,7 +17,7 @@ accept_content = ['json']
 
 # 并发
 worker_prefetch_multiplier = 1
-concurrency = 1
+# concurrency = 1 只能用command输入
 
 # 队列控制（关键！）
 task_create_missing_queues = False
