@@ -9,7 +9,7 @@ on:
 jobs:
   Deploy:
         runs-on: ubuntu-latest
-        environment: bbh_server
+        environment: autodl
         if: |
           github.ref == 'refs/heads/main'
         steps:
@@ -21,8 +21,8 @@ jobs:
               password: ${{ secrets.PASSWORD }}
               port: ${{ secrets.PORT }}
               script: |
-                export PATH=$PATH:/root/.local/bin/
-                export PARH=$PATH:/home/${{ secrets.USERNAME }}/.local/bin/
+                # export PATH=$PATH:/root/.local/bin/
+                # export PARH=$PATH:/home/${{ secrets.USERNAME }}/.local/bin/
                 
                 cd /srv/fastapi_project/fastapi_project
                 
@@ -37,17 +37,17 @@ jobs:
                 # cd ./fastapi_project/
                 # echo '=======uv sync==========='
                 
-                uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
+                /root/.local/bin/uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple
                 echo '=======启动服务==========='
 
-                sudo systemctl restart fastapi_ocr.service
-                sudo systemctl restart celery_worker.service
+                # sudo systemctl restart fastapi_ocr.service
+                # sudo systemctl restart celery_worker.service
 
 
 
                 echo '=======服务状态==========='
-                sudo systemctl status fastapi_ocr.service
-                sudo systemctl status celery_worker.service
+                # sudo systemctl status fastapi_ocr.service
+                # sudo systemctl status celery_worker.service
                 
                 echo "over deploy "
 
