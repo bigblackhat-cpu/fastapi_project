@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-
+from celery.result import AsyncResult
 router = APIRouter()
 
 @router.get('/')
@@ -18,6 +18,16 @@ async def ocr_transform_mock(imageSerializer: OcrImageSerializer):
     print('process image end ...')
     return {'taskid':12333713}
 
+from .basemodel_type import OcrImageSerializer
+from .celery_app.tasks import ocr_api
+@router.post('/api/ocr_server')
+async def ocr_transform_mock(imageSerializer: OcrImageSerializer):
+    print('process image start ...')
+    # print(imageSerializer.image_url)
+    res: AsyncResult = ocr_api.delay(imageSerializer.image_url)
+    print('process image end ...')
+    
+    return {'taskid':res.id}
 
 from .celery_app.tasks import pingTask
 @router.post('/api/pingTask')
