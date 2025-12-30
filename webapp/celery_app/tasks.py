@@ -3,6 +3,7 @@ from . import app #model_instance,model_test  # ← 导入上面创建的 app �
 import datetime
 import uuid
 import os
+from .lib import create_model
 
 # 示例任务：ping
 @app.task
@@ -14,19 +15,20 @@ def pingTask():
     print('===========task is successfully =========')
     return "ping"
 
-@app.task
-def tes_single():
-    # global model_test
-    print(model_test)
-    return model_test
+# @app.task
+# def tes_single():
+#     # global model_test
+#     print(model_test)
+#     return model_test
 
 @app.task
 def ocr_api(url: str):
     # global model_instance
-    if model_instance is None:
+    ocr_model = create_model()
+    if ocr_model is None:
         raise RuntimeError("❌ 模型未加载！请检查 worker 初始化是否成功。")
     
-    output = model_instance.predict(url)
+    output = ocr_model.predict(url)
 
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     unique_id = str(uuid.uuid4())[:8] # 生成8位随机字符串

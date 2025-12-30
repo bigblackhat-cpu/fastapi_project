@@ -1,6 +1,7 @@
 # webapp/celery_app/__init__.py
 from celery import Celery
 from celery.signals import worker_process_init
+from .lib import model_init
 
 app = Celery('fastapi_app')
 app.config_from_object('webapp.celery_app.celeryconfig')
@@ -19,11 +20,12 @@ def init_worker_process(**kwargs):
     """
     在每个 Celery worker 子进程启动时调用
     """
-    global model_instance
-    global model_test
-    model_test = ['123546']
-    print("🔧 正在初始化 Worker 进程，加载 PaddleOCRVL 模型...")
-    from paddleocr import PaddleOCRVL  # 👈 替换为实际导入路径
-    model_instance = PaddleOCRVL()
+    # global model_instance
+    # global model_test
+    # model_test = ['123546']
+    # print("🔧 正在初始化 Worker 进程，加载 PaddleOCRVL 模型...")
+    # from paddleocr import PaddleOCRVL  # 👈 替换为实际导入路径
+    # model_instance = PaddleOCRVL()
     
-    print("✅ PaddleOCRVL 模型加载成功！")
+    # print("✅ PaddleOCRVL 模型加载成功！")
+    model_init()
