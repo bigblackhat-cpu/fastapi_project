@@ -14,7 +14,7 @@ def pingTask():
     print('===========task is successfully =========')
     return "ping"
 
-@app.task()
+@app.task
 def ocr_api(url: str):
     global model_instance
     if model_instance is None:
