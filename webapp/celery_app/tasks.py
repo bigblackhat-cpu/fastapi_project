@@ -1,5 +1,5 @@
 import time
-from . import app,model_instance,model_test  # ← 导入上面创建的 app 实例
+from . import app #model_instance,model_test  # ← 导入上面创建的 app 实例
 import datetime
 import uuid
 import os
@@ -16,13 +16,13 @@ def pingTask():
 
 @app.task
 def tes_single():
-    global model_test
+    # global model_test
     print(model_test)
-    return
+    return model_test
 
 @app.task
 def ocr_api(url: str):
-    global model_instance
+    # global model_instance
     if model_instance is None:
         raise RuntimeError("❌ 模型未加载！请检查 worker 初始化是否成功。")
     

@@ -10,9 +10,9 @@ app.autodiscover_tasks(['webapp.celery_app'])  # 注意：这里是模块路径�
 
 
 
-model_instance = None
+# model_instance = None
 
-model_test = None
+# model_test = None
 
 @worker_process_init.connect
 def init_worker_process(**kwargs):
