@@ -1,5 +1,5 @@
 import time
-from . import app  # ← 导入上面创建的 app 实例
+from . import app,model_instance  # ← 导入上面创建的 app 实例
 import datetime
 import uuid
 import os

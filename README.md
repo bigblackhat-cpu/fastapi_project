@@ -7,8 +7,15 @@ uv run celery -A webapp.celery_app worker -P solo
 uv run celery -A webapp.celery_app worker --loglevel=info --concurrency=1
 uv run fastapi run webapp/main.py --host 0.0.0.0 --port 8001
 
+
+
 第三方
  python -m pip install paddlepaddle-gpu==3.2.2 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+ python -m pip install -U "paddleocr[doc-parser]"
+
+
+ 测试
+ paddleocr doc_parser -i https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/paddleocr_vl_demo.png
 ```
 ## 命令行上能配置的
 ### 模式选择
