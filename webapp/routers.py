@@ -43,4 +43,12 @@ async def pingTaskApi():
     return {'res': f'消息已发送，进入推理计算,{result.ready()}'}
 
 
+from .celery_app.tasks import tes_single
+@router.post('/api/tes_single')
+async def tesModelApi():
+    result = tes_single.delay()
+
+    return {'res':f'消息已发送，进入推理计算,{result.ready()}'}
+
+
 

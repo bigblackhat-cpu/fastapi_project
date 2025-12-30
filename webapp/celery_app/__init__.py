@@ -12,12 +12,16 @@ app.autodiscover_tasks(['webapp.celery_app'])  # 注意：这里是模块路径�
 
 model_instance = None
 
+model_test = None
+
 @worker_process_init.connect
 def init_worker_process(**kwargs):
     """
     在每个 Celery worker 子进程启动时调用
     """
     global model_instance
+    global model_test
+    model_test = ['123546']
     print("🔧 正在初始化 Worker 进程，加载 PaddleOCRVL 模型...")
     from paddleocr import PaddleOCRVL  # 👈 替换为实际导入路径
     model_instance = PaddleOCRVL()

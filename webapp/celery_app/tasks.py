@@ -1,5 +1,5 @@
 import time
-from . import app,model_instance  # ← 导入上面创建的 app 实例
+from . import app,model_instance,model_test  # ← 导入上面创建的 app 实例
 import datetime
 import uuid
 import os
@@ -13,6 +13,12 @@ def pingTask():
         print(i + 1)
     print('===========task is successfully =========')
     return "ping"
+
+@app.task
+def tes_single():
+    global model_test
+    print(model_test)
+    return
 
 @app.task
 def ocr_api(url: str):
