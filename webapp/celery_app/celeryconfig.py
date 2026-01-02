@@ -20,17 +20,17 @@ worker_prefetch_multiplier = 1
 # concurrency = 1 只能用command输入
 
 # 队列控制（关键！）
-task_create_missing_queues = False
+# task_create_missing_queues = False
 
 # 默认队列
-task_default_queue = 'christmas_queue'
+# task_default_queue = 'christmas_queue'
 
 # 队列定义（显式 exchange），启动worker的时候会创建
 task_queues = (
     Queue(
-        'christmas_queue',
-        exchange=Exchange('christmas_exchange', type='direct'),
-        routing_key='simple_routing',
+        'ocr_server_queue',
+        exchange=Exchange('ocr_server_queue', type='direct'),
+        routing_key='ocr_routing',
         queue_arguments={
             'x-max-length': 10,
             'x-overflow': 'reject-publish'
@@ -40,7 +40,12 @@ task_queues = (
 
 # 路由
 task_routes = {
-    'tasks.ping': {'queue': 'christmas_queue'},
+    'webapp.celery_app.tasks.pingTask': {
+        'queue': 'ocr_server_queue'
+        },
+    'webapp.celery_app.tasks.ocr_api': {
+        'queue': 'ocr_server_queue'
+        },
 
 }
 
